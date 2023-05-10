@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'customauth_app',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +92,8 @@ DATABASES = {
 		'PORT':'3306',
 	}
 }
+
+AUTH_USER_MODEL = "customauth_app.CustomUser"
 
 
 # Password validation
