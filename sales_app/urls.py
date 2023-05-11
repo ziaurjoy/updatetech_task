@@ -18,5 +18,8 @@ urlpatterns = [
     path('most-selling-sub-categories', views.MostSellingItemsSubCategoryView.as_view(), name='most-selling-sub-categories'),
     path('region-base-sales-performance-pie-chat', views.RegionBasisSalesPerformancePieChartView.as_view(), name='region-base-sales-performance-pie-chat'),
     path('sales-performance-line-chart-of-years', views.SalesPerformanceLineChartOverTheYearsView.as_view(), name='sales-performance-line-chart-years'),
+
+    # this return for pdf report file
+    path('sales-performance-line-chart-of-years-report-pdf', views.RegionBasisSalesPerformancePieChartReportView.as_view(), name='sales-performance-line-chart-years-report-pdf'),
 ]
 

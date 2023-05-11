@@ -7,6 +7,14 @@ from rest_framework import status
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncYear
 
+
+# if return pdf file
+import pandas as pd
+import matplotlib.pyplot as plt
+from reportlab.pdfgen import canvas
+from io import BytesIO
+from django.http import FileResponse
+import io
 # Create your views here.
 
 
@@ -155,5 +163,49 @@ class RegionBasisSalesPerformancePieChartView(generics.ListAPIView):
 class SalesPerformanceLineChartOverTheYearsView(generics.ListAPIView):
     queryset = Sales.objects.annotate(year=TruncYear('order_date')).values('year').annotate(sales = Sum('sales')).order_by('year')
     serializer_class = serializers.SalesPerformanceLineChartOverTheYearsSerliazer
+
+
+
+
+# if it's call to return to Pie Chart pdf file
+class RegionBasisSalesPerformancePieChartReportView(generics.ListAPIView):
+    def get_queryset(self):
+        return Sales.objects.values('region').annotate(sales=Sum('sales')).order_by('region')
+    
+    def get(self, request, *args, **kwargs):
+        sales_by_region = self.get_queryset()
+
+        # Create a DataFrame from the query results
+        df = pd.DataFrame(sales_by_region)
+        print(df)
+        # Create a pie chart from the DataFrame
+        fig, ax = plt.subplots()
+        df.plot.pie(y='sales', labels=df['region'], ax=ax, autopct='%1.1f%%')
+
+        # Set the title
+        ax.set_title('Regional Sales Performance')
+
+        # Save the chart to a PNG file
+        fig.savefig('sales_performance.png')
+
+        buffer = BytesIO()
+        pdf = canvas.Canvas(buffer)
+        pdf.setTitle("Regional Sales Performance Report")
+        pdf.drawString(70, 730, "Regional Sales Performance Report")
+
+        # add content to PDF report
+        y = 700
+        pdf.drawInlineImage('sales_performance.png',15, y-450)
+
+        pdf.showPage()
+        pdf.save()
+        pdf_data = buffer.getvalue()
+        buffer.close()
+        with open('SalesPerformancePieChartReport.pdf', 'wb') as f:
+            f.write(pdf_data)
+
+        response = FileResponse(io.BytesIO(pdf_data), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="SalesPerformancePieChartReport.pdf"'
+        return response
     
 
