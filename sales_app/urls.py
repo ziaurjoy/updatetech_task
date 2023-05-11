@@ -6,8 +6,9 @@ from django.urls import path
 
 
 router = DefaultRouter()
-router.register(r'api', views.SalesViewSet, basename='sales-api')
+router.register(r'sales-viewset', views.SalesViewSet, basename='sales-viewset')
 urlpatterns = router.urls
+
 
 urlpatterns = [
     path('total-number-of-oders-count-per-year', views.TotalNumberOfOrdersCountPerYearView.as_view(), name='api-total-number-of-oders-count-per-year'),

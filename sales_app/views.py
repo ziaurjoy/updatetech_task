@@ -128,27 +128,26 @@ class TotalNumberOfOrdersCountPerYearView(generics.ListCreateAPIView):
 
 class TotalCountOfDistinctCustomersView(generics.ListAPIView):
     queryset = Sales.objects.values('city').annotate(coustomers=Count('customer_name')).order_by('city')
-    serializer_class = serializers.TotalCountOfDistinctCustomers
+    serializer_class = serializers.TotalCountOfDistinctCustomersSerliazer
 
 
 class Top3CustomerstotalAmountOfTransactionsView(generics.ListAPIView):
-    queryset = Sales.objects.values('customer_name').annotate(Sum('sales')).order_by('-sales__sum')[:3]
+    queryset = Sales.objects.values('customer_name').annotate(amount=Sum('sales')).order_by('-amount')[:3]
     serializer_class = serializers.Top3CustomerstotalAmountOfTransactionsSerliazer
 
 
 class CustomerTransactionsPerYearReportView(generics.ListAPIView):
-    queryset = Sales.objects.annotate(year=TruncYear('order_date')).values('customer_name', 'year').annotate(Sum('sales')).order_by('year').order_by('customer_name')
+    queryset = Sales.objects.annotate(year=TruncYear('order_date')).values('customer_name', 'year').annotate(transaction=Sum('sales')).order_by('year').order_by('customer_name')
     serializer_class = serializers.CustomerTransactionsPerYearSerliazer
 
 
 class MostSellingItemsSubCategoryView(generics.ListAPIView):
     queryset = Sales.objects.values('sub_category').annotate(total=Count('id')).order_by('-total')
     serializer_class = serializers.MostSellingItemsSubCategorySerliazer
-
-
+    
 
 class RegionBasisSalesPerformancePieChartView(generics.ListAPIView):
-    queryset = Sales.objects.values('region').annotate(Sum('sales')).order_by('region')
+    queryset = Sales.objects.values('region').annotate(sales=Sum('sales')).order_by('region')
     serializer_class = serializers.RegionBasisSalesPerformancePieChartSerliazer
     
 

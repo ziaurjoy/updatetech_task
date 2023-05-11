@@ -20,22 +20,22 @@ class TotalNumberOfOrdersCountPerYearSerliazer(serializers.Serializer):
     sales = serializers.IntegerField()
 
 
-class TotalCountOfDistinctCustomers(serializers.Serializer):
+class TotalCountOfDistinctCustomersSerliazer(serializers.Serializer):
     city = serializers.DateField()
     coustomers = serializers.IntegerField()
 
 
 class Top3CustomerstotalAmountOfTransactionsSerliazer(serializers.ModelSerializer):
-    sales__sum = serializers.IntegerField()
+    amount = serializers.IntegerField()
     class Meta:
         model=Sales
-        fields = ['customer_name', 'sales__sum']
+        fields = ['customer_name', 'amount']
 
 
 class CustomerTransactionsPerYearSerliazer(serializers.Serializer):
     customer_name = serializers.CharField()
     year = serializers.DateField()
-    sales__sum = serializers.IntegerField()
+    transaction = serializers.IntegerField()
 
 
 class MostSellingItemsSubCategorySerliazer(serializers.Serializer):
@@ -44,10 +44,10 @@ class MostSellingItemsSubCategorySerliazer(serializers.Serializer):
 
 
 class RegionBasisSalesPerformancePieChartSerliazer(serializers.ModelSerializer):
-    sales__sum = serializers.IntegerField()
+    sales = serializers.IntegerField()
     class Meta:
         model=Sales
-        fields = ['region', 'sales__sum']
+        fields = ['region', 'sales']
         
 
 
