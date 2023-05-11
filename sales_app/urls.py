@@ -1,22 +1,21 @@
 
-from sales_app.views import SalesViewSet, QueryViewSet, SalesReportTotalNumberOfOdersCountPerYearReportViewView, TotalCountOfDistinctCustomersViewView, Top3CustomerstotalAmountOfTransactionsViewView, CustomerTransactionsPerYearReportViewView, MostSellingItemsSubCategoryNamesView, RegionBasisSalesPerformancePieChartView,SalesPerformanceLineChartOverTheYearsView
 from rest_framework.routers import DefaultRouter
+from . import views
 
 from django.urls import path
 
 
 router = DefaultRouter()
-router.register(r'api', SalesViewSet, basename='sales-api')
-router.register(r'api-query', QueryViewSet, basename='sales-query-api')
+router.register(r'api', views.SalesViewSet, basename='sales-api')
 urlpatterns = router.urls
 
 urlpatterns = [
-    path('total-number-of-oders-count-per-year/', SalesReportTotalNumberOfOdersCountPerYearReportViewView.as_view(), name='api-total-number-of-oders-count-per-year'),
-    path('total-count-of-distric-customer/', TotalCountOfDistinctCustomersViewView.as_view(), name='total-count-of-distric-customer'),
-    path('top-3-of-customer-transaction/', Top3CustomerstotalAmountOfTransactionsViewView.as_view(), name='top-3-of-customer-transaction'),
-    path('customer-transaction-per-year/', CustomerTransactionsPerYearReportViewView.as_view(), name='customer-transaction-per-year'),
-    path('most-selling-sub-categories/', MostSellingItemsSubCategoryNamesView.as_view(), name='most-selling-sub-categories'),
-    path('region-base-sales-performance-pie-chat/', RegionBasisSalesPerformancePieChartView.as_view(), name='region-base-sales-performance-pie-chat'),
-    path('sales-performance-line-chart-years/', SalesPerformanceLineChartOverTheYearsView.as_view(), name='sales-performance-line-chart-years'),
+    path('total-number-of-oders-count-per-year', views.TotalNumberOfOrdersCountPerYearView.as_view(), name='api-total-number-of-oders-count-per-year'),
+    path('total-count-of-distric-customer', views.TotalCountOfDistinctCustomersView.as_view(), name='total-count-of-distric-customer'),
+    path('top-3-of-customer-transaction', views.Top3CustomerstotalAmountOfTransactionsView.as_view(), name='top-3-of-customer-transaction'),
+    path('customer-transaction-per-year', views.CustomerTransactionsPerYearReportView.as_view(), name='customer-transaction-per-year'),
+    path('most-selling-sub-categories', views.MostSellingItemsSubCategoryView.as_view(), name='most-selling-sub-categories'),
+    path('region-base-sales-performance-pie-chat', views.RegionBasisSalesPerformancePieChartView.as_view(), name='region-base-sales-performance-pie-chat'),
+    path('sales-performance-line-chart-of-years', views.SalesPerformanceLineChartOverTheYearsView.as_view(), name='sales-performance-line-chart-years'),
 ]
 

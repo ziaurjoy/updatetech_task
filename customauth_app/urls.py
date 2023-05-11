@@ -9,5 +9,5 @@ from rest_framework.routers import DefaultRouter
 
 
 urlpatterns = [
-    path('api/', CustomUserRegistrationView.as_view(), name='user-registration'),
+    path('registration', CustomUserRegistrationView.as_view(), name='user-registration'),
 ]
