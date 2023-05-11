@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     #startapps
     'customauth_app',
+    'sales_app',
 ]
 
 MIDDLEWARE = [
