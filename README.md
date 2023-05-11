@@ -13,7 +13,7 @@
 # Step2
 
 - Mysql DB server running
-- Create DB updatetechltd_task_db or
+- Create DB updatetechltd_task_db or upload db
 - Upload table sql file in this directory
 - run server
 
