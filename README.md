@@ -1,4 +1,6 @@
 if you check output pdf files to open reports pdf directory
+if you need return pdf file to read views_return_pdf(Only read) file
+if you need return json data to read views(recommended) file
 
 # Requirements
 
